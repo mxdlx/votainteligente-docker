@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:3
+    container_name: redis
+    networks:
+      - vi
+
+  elastic:
+     image: elasticsearch:2.4-alpine
+     container_name: elastic
+     networks:
+       - vi
+
+  app:
+    image: testing/votainteligente
+    build: ./docker-vi
+    container_name: votainteligente
+    networks:
+      - vi
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./code:/code:rw
+
+networks:
+  vi:
+    driver: bridge
