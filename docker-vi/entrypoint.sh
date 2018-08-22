@@ -6,6 +6,8 @@ if [ ! -f /code/requirements.txt ]; then
   # Fixes
   sed -i 's#127\.0\.0\.1:9200#elastic:9200#g' /code/votainteligente/settings.py
   echo "CONSTANCE_REDIS_CONNECTION = { 'host': 'redis', 'port': 6379, 'db': 0, }" >> /code/votainteligente/settings.py
+  touch /code/local_settings.py
+  echo "ROOT_URLCONF='votita.stand_alone_urls'" > /code/local_settings.py
 
   # Django manage
   cd /code && python manage.py migrate
